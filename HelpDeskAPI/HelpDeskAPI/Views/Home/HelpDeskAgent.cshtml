@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "HelpDeskAgent";
+}
+@section scripts {
+    <script src="~/Assets/helpdeskagent.js"></script>
+}
+
+
+<div class="container">
+    <div style="text-align:center"><h3>HELP DESK AGENT</h3></div>
+    <div style="text-align:center;border: 1px solid #ddd;padding: 15px 20px 15px 20px;margin-top:30px">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div style="text-align:left">Title :</div>
+                <input class="form-control" id="title" type="text" placeholder="please enter title ..." />
+            </div>
+            <div class="col-md-3">
+                <div style="text-align:left">Status :</div>
+                <input class="form-control" id="status" type="text" placeholder="please enter status ..." />
+            </div>
+            <div class="col-md-3">
+                <div style="text-align:left">Created Date :</div>
+                <input class="form-control" id="createdDate" type="date" />
+            </div>
+            <div class="col-md-3">
+                <div style="text-align:left">Completed Date :</div>
+                <input class="form-control" id="completedDate" type="date" />
+            </div>
+        </div>
+
+        <div class="col-md-12" style="margin:15px">
+            <button class="btn btn-success btn-lg" type="submit" id="btnAdd" onclick='addItem(this)'>Click Add Item</button>
+        </div>
+
+        <p style="font-size:18px" id="msg"></p>
+        <div>
+            <form>
+                <table class="table table-bordered" id="itemTable">
+                    <thead>
+                        <tr style="color:darkblue;font-size:17px;font-weight:bold">
+                            <td> ID </td>
+                            <td> TITLE </td>
+                            <td> STATUS </td>
+                            <td> CREATED DATE </td>
+                            <td> COMPLETED DATE </td>
+                            <td>Chưa làm xong mục này</td>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
