@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     getItemList();
-    loadData();
+    //showEdit();
 
 });
 function getItemList() {
@@ -35,11 +35,17 @@ function itemBuildTableRow(item) {
         + "<td>" + item.CreatedDate + "</td>"
         + "<td>" + item.CompletedDate + "</td>"
         + "<td>" +
-        "<button class='btnEdit btn btn-info btn-sm'>Edit</button>" + " / " +
-        "<button class='btnDelete btn btn-danger btn-sm' >Delete</button>"
+        "<button data-id='" + item.Id + "' class='btnEdit btn btn-info btn-sm' type='button' data-toggle='modal' data-target='#myModal'>Edit</button>" + " / " +
+        "<button data-id='" + item.Id + "' class='btnDelete btn btn-danger btn-sm' type='button' >Delete</button>"
         + "</td>"
         + "</tr>";
+
+        deleteRows();
+    
+
     return items;
+
+
 }
 
 function handleException(request, message, error) {
@@ -52,7 +58,7 @@ function handleException(request, message, error) {
 
     alert(msg);
 }
-var new_item = { Id: 0, Title: "", Status: "", CreatedDate: "", CompletedDate: ""}
+var new_item = { Id: 0, Title: "", Status: "", CreatedDate: "", CompletedDate: "",}
 function addItem(item) {
     var obj = {};
     obj.url = "/api/WorkItems/";
@@ -81,18 +87,79 @@ function addItem(item) {
     $.ajax(obj);
 }
 
-function loadData() {
-    $(".btnDelete").click(function () {
-        $.ajax({
-            url: "/api/WorkItems/" + id,
-            type: "DELETE", 
-            contentType: "application/json",
-            success: function () {
-                bootbox.alert("Proposal deleted successfully.");
-                ReloadGrid();
-            },
-            error: function () {
+function deleteRows() {
+
+
+
+    var dataid = $('.btnDelete').attr('data-id');
+    $('.btnDelete').click(function (e) {
+        e.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure to delete this record?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+            function (isConfirmed) {
+                if (isConfirmed) {
+                    //$(".file").addClass("isDeleted");
+                    $.ajax({
+                        url: "/api/WorkItems/" + dataid,
+                        type: "DELETE",
+                        contentType: "application/json",
+                        success: function () {
+                            swal("Deleted!", "Your record has been deleted.", "success");
+                            location.reload();
+                        },
+                        error: function () {
+                        }
+                    });
+
+                }
             }
-        });
+        );
+    });
+}
+
+
+
+
+
+$('.btnEdit').click(function () {
+
+    var dataid = $('.btnDelete').attr('data-id');
+    showEdit(dataid);
+});
+
+
+
+function showEdit(dataid) {
+    //var dataid = $('.btnDelete').attr('data-id');
+    $.ajax({
+        url: "/api/WorkItems/",
+        data: {
+            id: dataid
+        },
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            if (response.status == true) {
+                var data = response.data;
+                $('#txtTitle').text(data.Title);
+                $('#txtStatus').text(data.Status);
+                //$('#txtCreatedDate').val(data.CreatedDate);
+                //$('#txtCompletedDate').val(data.CreatedDate);
+            }
+            else {
+                //alert(response.message);
+
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
     });
 }

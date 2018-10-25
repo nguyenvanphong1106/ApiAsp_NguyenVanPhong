@@ -4,6 +4,10 @@
 }
 @section scripts {
     <script src="~/Assets/helpdeskagent.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+
+
 }
 
 
@@ -44,7 +48,7 @@
                             <td> STATUS </td>
                             <td> CREATED DATE </td>
                             <td> COMPLETED DATE </td>
-                            <td>Chưa làm xong mục này</td>
+                            <td> MANAGER </td>
                         </tr>
                     </thead>
                 </table>
@@ -55,3 +59,42 @@
 
 
 
+
+<!-- Modal Edit -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit</h4>
+            </div>
+            <div class="modal-body" style="padding-left:150px">
+                <p>Some text in the modal.</p>
+                <div>
+                    <div>
+                        <div style="text-align:left">Title :</div>
+                        <input class="form-control" name="txtTitle" id="txtTitle" type="text"  />
+                    </div>
+                    <div>
+                        <div style="text-align:left">Status :</div>
+                        <input class="form-control" name="txtStatus" id="txtStatus" type="text" />
+                    </div>
+                    <div>
+                        <div style="text-align:left">Created Date :</div>
+                        <input class="form-control" name="txtCreatedDate" id="txtCreatedDate" type="date" />
+                    </div>
+                    <div>
+                        <div style="text-align:left">Completed Date :</div>
+                        <input class="form-control" name="txtCompletedDate" id="txtCompletedDate" type="date" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

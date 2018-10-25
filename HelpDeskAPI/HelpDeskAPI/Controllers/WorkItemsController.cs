@@ -38,6 +38,48 @@ namespace HelpDeskAPI.Controllers
         }
 
 
+
+
+
+        // PUT: api/WorkItems1/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutWorkItem(int id, WorkItem workItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != workItem.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(workItem).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!WorkItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+
+
+
         [ResponseType(typeof(WorkItem))]
         public async Task<IHttpActionResult> PostWorkItem(WorkItem workItem)
         {
